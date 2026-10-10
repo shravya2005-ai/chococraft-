@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('Contact Us')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div th:replace="~{fragments/alerts :: alerts}"></div>
+
+<main class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="brand-font display-5 fw-bold">Get In Touch</h1>
+            <p class="text-muted">Have a question about custom wedding hampers, corporate orders, or store locations?</p>
+        </div>
+
+        <div class="row g-5">
+            <!-- Contact Form -->
+            <div class="col-lg-7">
+                <div class="bg-white rounded-4 shadow-sm p-4 border">
+                    <h4 class="brand-font fw-bold mb-3"><i class="fa-solid fa-paper-plane me-2 text-warning"></i> Send Us a Message</h4>
+                    
+                    <form th:action="@{/contact}" method="post" th:object="${contactMessage}">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label fw-bold">Your Name</label>
+                                <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="e.g. Priya Sharma" required>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label fw-bold">Email Address</label>
+                                <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="name@example.com" required>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                            </div>
+                            <div class="col-12">
+                                <label for="subject" class="form-label fw-bold">Subject</label>
+                                <input type="text" class="form-control" id="subject" th:field="*{subject}" placeholder="e.g. Inquiry regarding Bulk Wedding Chocolates" required>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}"></div>
+                            </div>
+                            <div class="col-12">
+                                <label for="message" class="form-label fw-bold">Message</label>
+                                <textarea class="form-control" id="message" th:field="*{message}" rows="4" placeholder="How can we help you?" required></textarea>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-choco-primary btn-lg px-4"><i class="fa-solid fa-paper-plane me-2"></i> Submit Inquiry</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Store Contact Info -->
+            <div class="col-lg-5">
+                <div class="card border-0 shadow-sm p-4 mb-4">
+                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-store me-2 text-warning"></i> Kitchen & Store Location</h5>
+                    <p class="mb-2"><i class="fa-solid fa-location-dot text-warning me-2"></i> <span th:text="${storeAddress}">Address</span></p>
+                    <p class="mb-2"><i class="fa-solid fa-phone text-warning me-2"></i> <span th:text="${storePhone}">+91 98765 43210</span></p>
+                    <p class="mb-0"><i class="fa-solid fa-envelope text-warning me-2"></i> <span th:text="${storeEmail}">support@chococraft.com</span></p>
+                </div>
+
+                <div class="card border-0 shadow-sm p-4 bg-dark text-white">
+                    <h5 class="brand-font text-warning mb-2"><i class="fa-solid fa-clock me-2"></i> Operating Hours</h5>
+                    <p class="small text-light-50 mb-1">Monday – Saturday: 9:00 AM – 8:00 PM</p>
+                    <p class="small text-light-50 mb-0">Sunday: 10:00 AM – 5:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

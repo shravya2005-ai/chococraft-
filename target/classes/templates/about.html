@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('Our Story & Craft')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div th:replace="~{fragments/alerts :: alerts}"></div>
+
+<main class="py-5">
+    <div class="container">
+        <!-- Hero Story -->
+        <div class="row align-items-center g-5 mb-5">
+            <div class="col-lg-6">
+                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-3">Our Heritage</span>
+                <h1 class="brand-font display-5 fw-bold text-dark">Handmade with Love, Delivered with Happiness.</h1>
+                <p class="lead text-muted mt-3">ChocoCraft began in a cozy home kitchen with a simple passion: to bring real, unadulterated cocoa back to chocolate lovers.</p>
+                <p class="text-muted">Unlike commercial chocolates packed with artificial vegetable fats and preservatives, every ChocoCraft piece is crafted using 100% pure cocoa butter, single-origin cocoa beans, and hand-roasted nuts.</p>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=700&q=80" 
+                     alt="ChocoCraft Kitchen" class="img-fluid rounded-4 shadow-lg border">
+            </div>
+        </div>
+
+        <!-- Homemade Process Steps -->
+        <div class="bg-white rounded-4 shadow-sm p-5 border mb-5">
+            <div class="text-center mb-5">
+                <h2 class="brand-font fw-bold">Our 4-Step Homemade Process</h2>
+                <p class="text-muted">How we craft pure happiness in small artisanal batches</p>
+            </div>
+
+            <div class="row g-4 text-center">
+                <div class="col-md-3">
+                    <div class="p-3">
+                        <div class="rounded-circle bg-warning text-dark mx-auto mb-3 d-flex align-items-center justify-content-center fw-bold fs-4" style="width: 60px; height: 60px;">1</div>
+                        <h5 class="fw-bold">Ethical Sourcing</h5>
+                        <p class="small text-muted">Selecting premium cocoa beans and organic dairy milk solids.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3">
+                        <div class="rounded-circle bg-warning text-dark mx-auto mb-3 d-flex align-items-center justify-content-center fw-bold fs-4" style="width: 60px; height: 60px;">2</div>
+                        <h5 class="fw-bold">Slow Conching</h5>
+                        <p class="small text-muted">Blending ingredients for 24 hours to achieve silky smooth texture.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3">
+                        <div class="rounded-circle bg-warning text-dark mx-auto mb-3 d-flex align-items-center justify-content-center fw-bold fs-4" style="width: 60px; height: 60px;">3</div>
+                        <h5 class="fw-bold">Hand Tempering</h5>
+                        <p class="small text-muted">Mastering precise temperatures for that iconic chocolate snap and shine.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3">
+                        <div class="rounded-circle bg-warning text-dark mx-auto mb-3 d-flex align-items-center justify-content-center fw-bold fs-4" style="width: 60px; height: 60px;">4</div>
+                        <h5 class="fw-bold">Eco Packaging</h5>
+                        <p class="small text-muted">Wrapping chocolates in fresh gold foil and insulated gift boxes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

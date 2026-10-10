@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('Admin Order Management')}"></head>
+<body class="bg-light">
+
+<div th:replace="~{admin/fragments/admin-layout :: admin-topbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-2 p-0">
+            <div th:replace="~{admin/fragments/admin-layout :: admin-sidebar('orders')}"></div>
+        </div>
+
+        <div class="col-lg-10 p-4">
+            <div th:replace="~{fragments/alerts :: alerts}"></div>
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="brand-font fw-bold">Customer Orders Management</h2>
+                
+                <!-- Filter Status -->
+                <form th:action="@{/admin/orders}" method="get" class="d-flex align-items-center gap-2">
+                    <label class="small fw-bold">Filter Status:</label>
+                    <select class="form-select form-select-sm" name="status" onchange="this.form.submit()">
+                        <option value="">All Orders</option>
+                        <option th:each="st : ${orderStatuses}" th:value="${st}" th:text="${st.label}" th:selected="${selectedStatus == st}">Status</option>
+                    </select>
+                </form>
+            </div>
+
+            <div class="card border-0 shadow-sm p-4">
+                <div class="table-responsive">
+                    <table class="table align-middle table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Order #</th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Payment</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="order : ${orderPage.content}">
+                                <td class="fw-bold" th:text="${order.orderNumber}">CC-101</td>
+                                <td th:text="${#temporals.format(order.orderDate, 'dd MMM yyyy, hh:mm a')}">Date</td>
+                                <td>
+                                    <div class="fw-bold" th:text="${order.user.fullName}">Customer</div>
+                                    <span class="small text-muted" th:text="${order.user.email}">email</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark border" th:text="${order.paymentMethod.name()}">COD</span>
+                                    <span class="badge bg-success" th:if="${order.paymentStatus.name() == 'COMPLETED'}">Paid</span>
+                                    <span class="badge bg-warning text-dark" th:unless="${order.paymentStatus.name() == 'COMPLETED'}">Pending</span>
+                                </td>
+                                <td class="fw-bold" th:text="'₹' + ${order.totalAmount}">₹499</td>
+                                <td>
+                                    <span th:if="${order.orderStatus.name() == 'PLACED'}" class="badge bg-info text-dark">Placed</span>
+                                    <span th:if="${order.orderStatus.name() == 'CONFIRMED'}" class="badge bg-primary">Confirmed</span>
+                                    <span th:if="${order.orderStatus.name() == 'PREPARING'}" class="badge bg-warning text-dark">Preparing</span>
+                                    <span th:if="${order.orderStatus.name() == 'SHIPPED'}" class="badge bg-dark">Shipped</span>
+                                    <span th:if="${order.orderStatus.name() == 'DELIVERED'}" class="badge bg-success">Delivered</span>
+                                    <span th:if="${order.orderStatus.name() == 'CANCELLED'}" class="badge bg-danger">Cancelled</span>
+                                </td>
+                                <td class="text-end">
+                                    <a th:href="@{/admin/orders/{id}(id=${order.id})}" class="btn btn-sm btn-choco-outline"><i class="fa-solid fa-eye me-1"></i> View & Manage</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

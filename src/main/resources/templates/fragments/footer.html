@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<footer th:fragment="footer" class="footer-chococraft mt-auto">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <h5 class="brand-font text-warning mb-3">
+                    <i class="fa-solid fa-cookie-bite me-2"></i><span th:text="${storeName}">ChocoCraft</span>
+                </h5>
+                <p class="small text-light-50" th:text="${storeTagline}">Handmade with Love, Delivered with Happiness.</p>
+                <p class="small text-light-50">Crafting artisanal homemade chocolates using 100% pure cocoa butter and organic ingredients for moments of pure bliss.</p>
+            </div>
+            
+            <div class="col-lg-2 col-md-6">
+                <h6 class="footer-title">Quick Links</h6>
+                <ul class="list-unstyled">
+                    <li><a th:href="@{/shop}" class="footer-link">All Chocolates</a></li>
+                    <li><a th:href="@{/gift-box}" class="footer-link">Custom Gift Box</a></li>
+                    <li><a th:href="@{/about}" class="footer-link">About Our Kitchen</a></li>
+                    <li><a th:href="@{/contact}" class="footer-link">Contact Support</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <h6 class="footer-title">Contact & Store</h6>
+                <p class="small mb-1"><i class="fa-solid fa-location-dot me-2 text-warning"></i><span th:text="${storeAddress}">Address</span></p>
+                <p class="small mb-1"><i class="fa-solid fa-phone me-2 text-warning"></i><span th:text="${storePhone}">+91 98765 43210</span></p>
+                <p class="small mb-1"><i class="fa-solid fa-envelope me-2 text-warning"></i><span th:text="${storeEmail}">support@chococraft.com</span></p>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <h6 class="footer-title">Connect With Us</h6>
+                <p class="small">Follow our sweet creations on social media:</p>
+                <div class="d-flex gap-3 fs-5">
+                    <a href="#" class="text-warning"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="text-warning"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="text-warning"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="text-warning"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <hr class="my-4 border-secondary">
+
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="small mb-0">&copy; <span th:text="${#temporals.format(#temporals.createNow(), 'yyyy')}">2026</span> ChocoCraft. All rights reserved.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <span class="small text-muted">Handmade with <i class="fa-solid fa-heart text-danger"></i> for Chocolate Lovers.</span>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

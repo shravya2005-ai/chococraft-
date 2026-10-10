@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('Checkout')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div th:replace="~{fragments/alerts :: alerts}"></div>
+
+<main class="py-5">
+    <div class="container">
+        <h1 class="brand-font display-6 fw-bold mb-4"><i class="fa-solid fa-credit-card me-2 text-warning"></i> Checkout</h1>
+
+        <form th:action="@{/checkout/place}" method="post" th:object="${checkoutForm}">
+            <div class="row g-4">
+                <!-- Shipping Address Form -->
+                <div class="col-lg-7">
+                    <div class="bg-white rounded-4 shadow-sm p-4 mb-4 border">
+                        <h4 class="brand-font text-dark fw-bold mb-3"><i class="fa-solid fa-truck-ramp-box me-2 text-warning"></i> Delivery Details</h4>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="fullName" class="form-label fw-bold">Recipient Full Name</label>
+                                <input type="text" class="form-control" id="fullName" th:field="*{fullName}" placeholder="e.g. Priya Sharma" required>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label fw-bold">Mobile Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" th:field="*{phone}" placeholder="e.g. 9876543210" required>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="addressLine" class="form-label fw-bold">Delivery Address</label>
+                                <input type="text" class="form-control" id="addressLine" th:field="*{addressLine}" placeholder="House/Flat No., Street, Landmark" required>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('addressLine')}" th:errors="*{addressLine}"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="city" class="form-label fw-bold">City</label>
+                                <input type="text" class="form-control" id="city" th:field="*{city}" placeholder="e.g. Bengaluru" required>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="state" class="form-label fw-bold">State</label>
+                                <input type="text" class="form-control" id="state" th:field="*{state}" placeholder="e.g. Karnataka" required>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="pincode" class="form-label fw-bold">PIN Code</label>
+                                <input type="text" class="form-control" id="pincode" th:field="*{pincode}" placeholder="e.g. 560001" required>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('pincode')}" th:errors="*{pincode}"></div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="orderNotes" class="form-label fw-bold">Order Notes / Delivery Instructions (Optional)</label>
+                                <textarea class="form-control" id="orderNotes" th:field="*{orderNotes}" rows="2" placeholder="e.g. Please ring doorbell twice or leave with security."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method Section -->
+                    <div class="bg-white rounded-4 shadow-sm p-4 border">
+                        <h4 class="brand-font text-dark fw-bold mb-3"><i class="fa-solid fa-wallet me-2 text-warning"></i> Payment Method</h4>
+
+                        <div class="mb-3">
+                            <select class="form-select form-select-lg" id="paymentMethodSelect" th:field="*{paymentMethod}" required>
+                                <option value="COD">Cash on Delivery (Pay upon arrival)</option>
+                                <option value="MOCK_ONLINE">Mock Online Payment (UPI / Credit Card / NetBanking)</option>
+                            </select>
+                        </div>
+
+                        <!-- Mock Payment Notice -->
+                        <div id="mockPaymentNotice" class="alert alert-warning d-none">
+                            <i class="fa-solid fa-shield-halved me-2"></i>
+                            <strong>Demonstration Mode:</strong> Selecting Mock Online Payment simulates a instant successful payment without asking for real banking details.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Review Card -->
+                <div class="col-lg-5">
+                    <div class="card border-0 shadow-sm p-4 sticky-top" style="top: 90px;">
+                        <h5 class="fw-bold mb-3">Order Items</h5>
+
+                        <ul class="list-group list-group-flush mb-3">
+                            <li th:each="item : ${cart.items}" class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div>
+                                    <h6 class="my-0 text-dark" th:text="${item.product != null ? item.product.name : 'Custom Gift Box'}">Item</h6>
+                                    <small class="text-muted" th:text="'Qty: ' + ${item.quantity}">Qty: 1</small>
+                                </div>
+                                <span class="fw-bold" th:text="'₹' + ${item.itemTotal}">₹199</span>
+                            </li>
+                        </ul>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Subtotal</span>
+                            <span class="fw-bold" th:text="'₹' + ${subtotal}">₹0.00</span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="text-muted">Delivery Charge</span>
+                            <span th:if="${deliveryCharge.compareTo(T(java.math.BigDecimal).ZERO) == 0}" class="text-success fw-bold">FREE</span>
+                            <span th:unless="${deliveryCharge.compareTo(T(java.math.BigDecimal).ZERO) == 0}" class="fw-bold" th:text="'₹' + ${deliveryCharge}">₹50.00</span>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between mb-4">
+                            <span class="fs-5 fw-bold text-dark">Total Amount</span>
+                            <span class="fs-3 fw-bold text-dark" th:text="'₹' + ${grandTotal}">₹0.00</span>
+                        </div>
+
+                        <button type="submit" class="btn btn-choco-primary btn-lg w-100 py-3 fw-bold">
+                            <i class="fa-solid fa-circle-check me-2"></i> Confirm & Place Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

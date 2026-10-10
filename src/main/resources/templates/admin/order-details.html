@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head('Admin Order #' + ${order.orderNumber})}"></head>
+<body class="bg-light">
+
+<div th:replace="~{admin/fragments/admin-layout :: admin-topbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-2 p-0">
+            <div th:replace="~{admin/fragments/admin-layout :: admin-sidebar('orders')}"></div>
+        </div>
+
+        <div class="col-lg-10 p-4">
+            <div th:replace="~{fragments/alerts :: alerts}"></div>
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <a th:href="@{/admin/orders}" class="btn btn-outline-secondary btn-sm mb-2"><i class="fa-solid fa-arrow-left me-1"></i> Back to Orders</a>
+                    <h2 class="brand-font fw-bold mb-0">Order Details: #<span th:text="${order.orderNumber}">CC-101</span></h2>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Status Update Box & Order Items -->
+                <div class="col-lg-8">
+                    <!-- Status Update Card -->
+                    <div class="card border-0 shadow-sm p-4 mb-4 border-start border-4 border-warning">
+                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-pen-to-square me-2 text-warning"></i> Update Order Status</h5>
+                        
+                        <form th:action="@{/admin/orders/update-status}" method="post" class="row g-3 align-items-center">
+                            <input type="hidden" name="orderId" th:value="${order.id}">
+                            
+                            <div class="col-md-6">
+                                <select class="form-select form-select-lg" name="orderStatus">
+                                    <option th:each="st : ${orderStatuses}" 
+                                            th:value="${st}" 
+                                            th:text="${st.label}" 
+                                            th:selected="${order.orderStatus == st}">Status</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-choco-primary btn-lg w-100" th:disabled="${order.orderStatus.name() == 'CANCELLED'}">
+                                    <i class="fa-solid fa-floppy-disk me-1"></i> Update Status
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Items List -->
+                    <div class="card border-0 shadow-sm p-4">
+                        <h5 class="fw-bold mb-3">Order Items Snapshot</h5>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Snapshot Price</th>
+                                        <th>Quantity</th>
+                                        <th class="text-end">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="item : ${order.orderItems}">
+                                        <td>
+                                            <div class="fw-bold" th:text="${item.productNameSnapshot}">Product Name</div>
+                                            <pre th:if="${item.giftBoxDetailsJson != null}" class="small text-muted bg-light p-2 rounded mb-0 mt-1" style="font-family: inherit; white-space: pre-wrap;" th:text="${item.giftBoxDetailsJson}"></pre>
+                                        </td>
+                                        <td th:text="'₹' + ${item.unitPriceSnapshot}">₹199</td>
+                                        <td th:text="${item.quantity}">1</td>
+                                        <td class="text-end fw-bold" th:text="'₹' + ${item.itemTotal}">₹199</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Details & Order Totals -->
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm p-4 mb-4">
+                        <h5 class="fw-bold mb-3">Customer Information</h5>
+                        <p class="fw-bold mb-1" th:text="${order.user.fullName}">Customer</p>
+                        <p class="text-muted small mb-1"><i class="fa-solid fa-envelope me-1"></i> <span th:text="${order.user.email}">email</span></p>
+                        <p class="text-muted small mb-0"><i class="fa-solid fa-phone me-1"></i> <span th:text="${order.recipientPhone}">phone</span></p>
+                        <hr>
+                        <h6 class="fw-bold mb-1">Delivery Address</h6>
+                        <p class="text-muted small mb-0" th:text="${order.deliveryAddress}">Address</p>
+                    </div>
+
+                    <div class="card border-0 shadow-sm p-4">
+                        <h5 class="fw-bold mb-3">Financial Summary</h5>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Subtotal</span>
+                            <span class="fw-bold" th:text="'₹' + ${order.subtotal}">₹0.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Delivery Charge</span>
+                            <span class="fw-bold" th:text="'₹' + ${order.deliveryCharge}">₹0.00</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-0">
+                            <span class="fs-5 fw-bold text-dark">Total</span>
+                            <span class="fs-4 fw-bold text-dark" th:text="'₹' + ${order.totalAmount}">₹0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
