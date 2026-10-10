@@ -51,7 +51,7 @@
                                 <tr th:each="item : ${cart.items}">
                                     <td>
                                         <div class="d-flex align-items-center gap-3">
-                                            <img th:src="${item.product != null ? item.product.imageUrl : '/images/products/giftbox-assorted.jpg'}" 
+                                            <img th:src="${item.product != null ? item.product.imageUrl : 'https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=600&q=80'}" 
                                                  alt="Item" class="rounded" style="width: 60px; height: 60px; object-fit: cover;">
                                             <div>
                                                 <h6 class="fw-bold text-dark mb-1" th:text="${item.product != null ? item.product.name : 'Custom Gift Box (' + item.customGiftBox.boxSize.displayName + ')'}">Item Name</h6>

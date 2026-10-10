@@ -3,18 +3,18 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-    // 1. Smart Name-Based Image Fallback Handling
+    // 1. Smart Name-Based Image Fallback Handling (Pure Chocolate Only)
     const fallbackMap = {
         'dark': 'https://images.unsplash.com/photo-1548907040-4baa42d10919?auto=format&fit=crop&w=600&q=80',
-        'milk': 'https://images.unsplash.com/photo-1582176647444-3e9a4f494206?auto=format&fit=crop&w=600&q=80',
+        'milk': 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80',
         'truffle': 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=600&q=80',
-        'almond': 'https://images.unsplash.com/photo-1606312619070-d48b4c652a52?auto=format&fit=crop&w=600&q=80',
+        'almond': 'https://images.unsplash.com/photo-1565071783280-719b01b29912?auto=format&fit=crop&w=600&q=80',
         'hazelnut': 'https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=600&q=80',
-        'white': 'https://images.unsplash.com/photo-1623341214825-9f4f963727da?auto=format&fit=crop&w=600&q=80',
-        'gift': 'https://images.unsplash.com/photo-1526080652727-5b77f74eacd2?auto=format&fit=crop&w=600&q=80',
-        'hamper': 'https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=600&q=80',
-        'caramel': 'https://images.unsplash.com/photo-1575377427642-087af6be9f97?auto=format&fit=crop&w=600&q=80',
-        'berry': 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=600&q=80'
+        'white': 'https://images.unsplash.com/photo-1581798459219-318e76aecc7b?auto=format&fit=crop&w=600&q=80',
+        'gift': 'https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=600&q=80',
+        'hamper': 'https://images.unsplash.com/photo-1526080652727-5b77f74eacd2?auto=format&fit=crop&w=600&q=80',
+        'caramel': 'https://images.unsplash.com/photo-1605807646983-377bc5a76493?auto=format&fit=crop&w=600&q=80',
+        'berry': 'https://images.unsplash.com/photo-1623341214825-9f4f963727da?auto=format&fit=crop&w=600&q=80'
     };
 
     document.querySelectorAll('img').forEach(function (img) {

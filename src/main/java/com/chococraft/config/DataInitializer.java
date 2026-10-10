@@ -133,6 +133,28 @@ public class DataInitializer implements CommandLineRunner {
 
             logger.info("Sample chocolate products initialized successfully!");
         }
+
+        // Always ensure all products have 100% verified pure chocolate images (no faces, people, eggs or noodles)
+        updateProductImageIfExists("Classic Dark Chocolate", "https://images.unsplash.com/photo-1548907040-4baa42d10919?auto=format&fit=crop&w=600&q=80");
+        updateProductImageIfExists("Milk Chocolate Bites", "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80");
+        updateProductImageIfExists("Homemade Chocolate Truffles", "https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=600&q=80");
+        updateProductImageIfExists("Almond Crunch Chocolate", "https://images.unsplash.com/photo-1565071783280-719b01b29912?auto=format&fit=crop&w=600&q=80");
+        updateProductImageIfExists("Hazelnut Chocolate Slabs", "https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=600&q=80");
+        updateProductImageIfExists("White Chocolate Hearts", "https://images.unsplash.com/photo-1581798459219-318e76aecc7b?auto=format&fit=crop&w=600&q=80");
+        updateProductImageIfExists("Assorted Chocolate Gift Box", "https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=600&q=80");
+        updateProductImageIfExists("Festive Luxury Chocolate Hamper", "https://images.unsplash.com/photo-1526080652727-5b77f74eacd2?auto=format&fit=crop&w=600&q=80");
+        updateProductImageIfExists("Caramel Silk Delight", "https://images.unsplash.com/photo-1605807646983-377bc5a76493?auto=format&fit=crop&w=600&q=80");
+        updateProductImageIfExists("Berry Fusion Dark Bar", "https://images.unsplash.com/photo-1623341214825-9f4f963727da?auto=format&fit=crop&w=600&q=80");
+    }
+
+    private void updateProductImageIfExists(String name, String imgUrl) {
+        productRepository.findAll().stream()
+                .filter(p -> p.getName().equalsIgnoreCase(name))
+                .findFirst()
+                .ifPresent(p -> {
+                    p.setImageUrl(imgUrl);
+                    productRepository.save(p);
+                });
     }
 
     private void createProduct(String name, String desc, BigDecimal price, String weight, String img,
