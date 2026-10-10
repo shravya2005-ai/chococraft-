@@ -3,18 +3,18 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-    // 1. Smart Name-Based Image Fallback Handling (Pure Chocolate Only)
+    // 1. Smart Name-Based Image Fallback Handling (Pure Chocolate Local Assets)
     const fallbackMap = {
-        'dark': 'https://images.unsplash.com/photo-1548907040-4baa42d10919?auto=format&fit=crop&w=600&q=80',
-        'milk': 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80',
-        'truffle': 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=600&q=80',
-        'almond': 'https://images.unsplash.com/photo-1565071783280-719b01b29912?auto=format&fit=crop&w=600&q=80',
-        'hazelnut': 'https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=600&q=80',
-        'white': 'https://images.unsplash.com/photo-1581798459219-318e76aecc7b?auto=format&fit=crop&w=600&q=80',
-        'gift': 'https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=600&q=80',
-        'hamper': 'https://images.unsplash.com/photo-1526080652727-5b77f74eacd2?auto=format&fit=crop&w=600&q=80',
-        'caramel': 'https://images.unsplash.com/photo-1605807646983-377bc5a76493?auto=format&fit=crop&w=600&q=80',
-        'berry': 'https://images.unsplash.com/photo-1623341214825-9f4f963727da?auto=format&fit=crop&w=600&q=80'
+        'dark': '/images/products/classic-dark-chocolate.jpg',
+        'milk': '/images/products/milk-chocolate-bites.jpg',
+        'truffle': '/images/products/homemade-chocolate-truffles.jpg',
+        'almond': '/images/products/almond-crunch-chocolate.jpg',
+        'hazelnut': '/images/products/hazelnut-chocolate.jpg',
+        'white': '/images/products/white-chocolate-hearts.jpg',
+        'gift': '/images/products/assorted-chocolate-gift-box.jpg',
+        'hamper': '/images/products/festive-chocolate-hamper.jpg',
+        'caramel': '/images/products/caramel-silk-delight.jpg',
+        'berry': '/images/products/berry-fusion-dark-bar.jpg'
     };
 
     document.querySelectorAll('img').forEach(function (img) {
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!this.dataset.fallbackApplied) {
                 this.dataset.fallbackApplied = 'true';
                 const altText = (this.alt || '').toLowerCase();
-                let chosenUrl = 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=600&q=80';
+                let chosenUrl = '/images/placeholder-chocolate.jpg';
                 for (const [key, url] of Object.entries(fallbackMap)) {
                     if (altText.includes(key)) {
                         chosenUrl = url;

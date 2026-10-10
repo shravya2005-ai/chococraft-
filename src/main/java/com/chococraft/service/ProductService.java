@@ -1,5 +1,6 @@
 package com.chococraft.service;
 
+import com.chococraft.config.ProductImageMapping;
 import com.chococraft.entity.Category;
 import com.chococraft.entity.Product;
 import com.chococraft.exception.ResourceNotFoundException;
@@ -79,6 +80,9 @@ public class ProductService {
                     .orElseThrow(() -> new ResourceNotFoundException("Category not found with ID: " + categoryId));
             product.setCategory(category);
         }
+        if (product.getImageUrl() == null || product.getImageUrl().isBlank()) {
+            product.setImageUrl(ProductImageMapping.getImagePathForProduct(product.getName()));
+        }
         return productRepository.save(product);
     }
 
@@ -89,7 +93,11 @@ public class ProductService {
         existing.setDescription(details.getDescription());
         existing.setPrice(details.getPrice());
         existing.setWeight(details.getWeight());
-        existing.setImageUrl(details.getImageUrl());
+        if (details.getImageUrl() == null || details.getImageUrl().isBlank()) {
+            existing.setImageUrl(ProductImageMapping.getImagePathForProduct(details.getName()));
+        } else {
+            existing.setImageUrl(details.getImageUrl());
+        }
         existing.setIngredients(details.getIngredients());
         existing.setAllergenInformation(details.getAllergenInformation());
         existing.setStorageInstructions(details.getStorageInstructions());
